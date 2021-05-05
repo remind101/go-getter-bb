@@ -8,7 +8,8 @@ import (
 func TestTarGzipDecompressor(t *testing.T) {
 
 	multiplePaths := []string{"dir/", "dir/test2", "test1"}
-
+	orderingPaths := []string{"workers/", "workers/mq/", "workers/mq/__init__.py"}
+	
 	cases := []TestDecompressCase{
 		{
 			"empty.tar.gz",
@@ -71,6 +72,16 @@ func TestTarGzipDecompressor(t *testing.T) {
 			true,
 			true,
 			nil,
+			"",
+			nil,
+		},
+
+		// Tests when the file is listed before the parent folder
+		{
+			"ordering.tar.gz",
+			true,
+			false,
+			orderingPaths,
 			"",
 			nil,
 		},
